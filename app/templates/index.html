@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Selamat datang di Eduverse7</h1>
+<h1>Selamat datang di Eduverse</h1>
 {% if current_user.is_authenticated %}
   <p>Halo, {{ current_user.name }} | <a href="{{ url_for('main.logout') }}">Logout</a></p>
 {% else %}
