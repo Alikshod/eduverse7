@@ -1,11 +1,43 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>Selamat datang di Eduverse</h1>
-{% if current_user.is_authenticated %}
-  <p>Halo, {{ current_user.name }} | <a href="{{ url_for('main.logout') }}">Logout</a></p>
-{% else %}
-  <a href="{{ url_for('main.login') }}">Login</a> | 
-  <a href="{{ url_for('main.register') }}">Daftar</a>
-{% endif %}
+
+<div class="text-center my-5">
+  <h1 class="fw-bold">Selamat Datang di <span class="text-primary">Eduverse</span>!</h1>
+  <p class="lead mt-3">
+    Eduverse adalah platform edukasi digital yang membuka akses belajar untuk semua orang.<br>
+    Di sini, siapa saja bisa berbagi dan mendapatkan materi pembelajaran secara mudah, cepat, dan gratis.
+  </p>
+</div>
+
+<div class="row text-center mb-5">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">📚 Jelajahi Materi</h5>
+        <p class="card-text">Temukan beragam materi edukatif dari berbagai bidang ilmu yang telah disetujui admin.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">🚀 Unggah Materi</h5>
+        <p class="card-text">Bagikan ilmu dan kontribusimu untuk komunitas belajar dengan mengunggah materi edukasi.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">💬 Komentar & Diskusi</h5>
+        <p class="card-text">Berinteraksi dan berdiskusi secara langsung melalui fitur komentar pada setiap materi.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <p class="text-muted">Belajar lebih mudah. Berbagi jadi bermakna. Hanya di <strong>Eduverse</strong>.</p>
+</div>
+
 {% endblock %}
