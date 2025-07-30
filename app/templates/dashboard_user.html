@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center mb-5">
+    <p class="text-muted">Halo, <strong>{{ current_user.name }}</strong>! Selamat datang di <span class="text-primary fw-semibold">Eduverse</span>.</p>
+  </div>
+
+  <div class="row">
+    <!-- Kartu Materi yang Disetujui -->
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">
+            <i class="bi bi-folder-check text-success me-2"></i>Materi yang Disetujui
+          </h5>
+
+          {% set approved_found = false %}
+          <ul class="list-group list-group-flush">
+            {% for material in current_user.materials %}
+              {% if material.approved %}
+                {% set approved_found = true %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ material.title }}
+                  <a href="{{ url_for('static', filename='uploads/' + material.filename) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                    Unduh
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if not approved_found %}
+              <li class="list-group-item text-muted">Materi telah disetujui.</li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kartu Upload Materi -->
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm border-0 h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-upload text-success display-4 mb-3"></i>
+          <h5 class="card-title">Unggah Materi Baru</h5>
+          <p class="card-text">Bagikan materi edukasimu kepada komunitas Eduverse dan bantu pengguna lain belajar lebih baik!</p>
+          <a href="{{ url_for('main.upload') }}" class="btn btn-success">+ Unggah Materi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('main.materials') }}" class="btn btn-outline-primary me-2">
+      <i class="bi bi-journal-text me-1"></i> Lihat Semua Materi
+    </a>
+  </div>
+</div>
+{% endblock %}

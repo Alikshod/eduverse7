@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Detail Materi{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- Navigasi -->
+    <nav class="navbar navbar-light bg-light rounded mb-4 px-3">
+        <span class="navbar-brand mb-0 h4">📘 Detail Materi</span>
+        <a href="{{ url_for('main.materials') }}" class="btn btn-outline-secondary btn-sm">← Kembali ke Daftar Materi</a>
+    </nav>
+
+    <!-- Detail Materi -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h3 class="card-title">{{ material.title }}</h3>
+            <p class="card-text">{{ material.description }}</p>
+
+            {% if material.filename %}
+                <a href="{{ url_for('static', filename='uploads/' + material.filename) }}" 
+                   class="btn btn-success mt-3" download>
+                   📥 Download Materi
+                </a>
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            Diunggah oleh: <strong>{{ material.uploader.name }}</strong>
+        </div>
+    </div>
+
+    <!-- Komentar -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            💬 Komentar
+        </div>
+        <div class="card-body">
+            {% for c in comments %}
+                <div class="border-bottom mb-3 pb-2">
+                    <strong>{{ c.user.name }}</strong> <small class="text-muted">{{ c.timestamp.strftime('%d %b %Y %H:%M') }}</small>
+                    <p class="mb-0">{{ c.content }}</p>
+                </div>
+            {% else %}
+                <p class="text-muted">Belum ada komentar.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Form Komentar -->
+    {% if current_user.is_authenticated %}
+        <div class="card shadow-sm mb-5">
+            <div class="card-header">
+                ✍️ Tambahkan Komentar
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group mb-3">
+                        {{ form.content.label(class="form-label") }}
+                        {{ form.content(class="form-control", rows=3) }}
+                        {% if form.content.errors %}
+                            <div class="text-danger">{{ form.content.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <a href="{{ url_for('auth.login') }}">Login</a> untuk berkomentar.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

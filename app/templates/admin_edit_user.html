@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Tambah Pengguna{% endblock %}
+{% block content %}
+<h2>Tambah Pengguna</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.name.label }} {{ form.name(class="form-control") }}</div>
+    <div class="mb-3">{{ form.email.label }} {{ form.email(class="form-control") }}</div>
+    <div class="mb-3">{{ form.password.label }} {{ form.password(class="form-control") }}</div>
+    <div class="mb-3">{{ form.role.label }} {{ form.role(class="form-select") }}</div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+<a href="{{ url_for('main.manage_users') }}" class="btn btn-secondary mt-3">Kembali</a>
+{% endblock %}

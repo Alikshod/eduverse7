@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Kelola Pengguna{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">👥 Kelola Pengguna</h4>
+      <a href="{{ url_for('main.add_user') }}" class="btn btn-success btn-sm">+ Tambah Pengguna</a>
+    </div>
+    <div class="card-body">
+
+      {% if users %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th class="text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                {% if user.role == 'admin' %}
+                  <span class="badge bg-success">{{ user.role|capitalize }}</span>
+                {% else %}
+                  <span class="badge bg-secondary">{{ user.role|capitalize }}</span>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <a href="{{ url_for('main.edit_user', user_id=user.id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
+                <form action="{{ url_for('main.delete_user', user_id=user.id) }}" method="post"
+                      style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus pengguna ini?');">
+                  <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-muted">Belum ada pengguna yang terdaftar.</p>
+      {% endif %}
+
+      <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary mt-3">← Kembali ke Dashboard</a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

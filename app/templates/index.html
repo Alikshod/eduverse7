@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Selamat datang di Eduverse7</h1>
+{% if current_user.is_authenticated %}
+  <p>Halo, {{ current_user.name }} | <a href="{{ url_for('main.logout') }}">Logout</a></p>
+{% else %}
+  <a href="{{ url_for('main.login') }}">Login</a> | 
+  <a href="{{ url_for('main.register') }}">Daftar</a>
+{% endif %}
+{% endblock %}
